@@ -44,6 +44,7 @@ try:
     urlpatterns.insert(0,
                        path('accounts/login/', auth_views.LoginView.as_view(template_name=social_login))
                        )
-    print('Using', social_login, 'as the login template')
+    # print('Using', social_login, 'as the login template')
 except:
-    print('Using registration/login.html as the login template')
+    # print('Using registration/login.html as the login template')
+    pass
