@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.11-slim
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -9,10 +9,20 @@ RUN mkdir /code
 COPY . /code/
 WORKDIR /code
 
-RUN pip install --upgrade pip
-RUN pip install -r requirements4.txt
+RUN python3 -m venv /opt/venv
 
-RUN chmod +x /code/entrypoint.sh
-RUN touch /code/logs/celery.log
-RUN chmod +x /code/logs/celery.log
-ENTRYPOINT ["/code/entrypoint.sh"]
+# # install psycopg2 dependencies
+RUN  apt-get install gcc -y
+RUN apt-get install libpq-dev -y
+RUN apt-get install postgresql postgresql-contrib -y
+
+
+RUN /opt/venv/bin/pip install pip --upgrade && \
+    /opt/venv/bin/pip install -r requirements4.txt && \
+    chmod +x entrypoint.sh
+
+# # # Collect static files
+# RUN /opt/venv/bin/python manage.py manage.py collectstatic --noinput
+
+# RUN chmod +x /code/entrypoint.sh
+CMD ["/code/entrypoint.sh"]
