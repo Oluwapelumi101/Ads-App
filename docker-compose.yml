@@ -4,9 +4,9 @@ services:
     build:
       context: ./mysite
       dockerfile: Dockerfile
-      cache_from:
-        - "${WEB_IMAGE}"
-    image: "${WEB_IMAGE}"
+    #   cache_from:
+    #     - "${WEB_IMAGE}"
+    # image: "${WEB_IMAGE}"
     environment:
       - PORT=8000
     env_file:
