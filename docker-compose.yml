@@ -4,9 +4,9 @@ services:
     build:
       context: ./mysite
       dockerfile: Dockerfile
-    # depends_on:
-    #   - 
-    image: adss-app:v2
+      cache_from:
+        - "${WEB_IMAGE}"
+    image: "${WEB_IMAGE}"
     environment:
       - PORT=8000
     env_file:
