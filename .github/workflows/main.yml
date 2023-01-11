@@ -39,8 +39,6 @@ jobs:
         with:
           username: ${{ secrets.NAMESPACE }}
           password: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          # username: Oluwapelumi101
-          # password: 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
 
       - name: Pull images
         run: |
