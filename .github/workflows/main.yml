@@ -58,7 +58,7 @@ jobs:
     needs: build
     steps:
       - name: Checkout main
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Add environment variables to .env
         run: |
           echo "DEBUG=0" >> .env
@@ -88,7 +88,7 @@ jobs:
         run: |
           scp  -o StrictHostKeyChecking=no -r ./.env ./docker-compose.yml root@${{ secrets.LINODE_IP_ADDRESS }}:/app
           ssh -o StrictHostKeyChecking=no root@${{ secrets.LINODE_IP_ADDRESS }} << 'ENDSSH'
-            cd /app
+            cd /code
             source .env
             docker login ghcr.io -u ${{ github.repository_owner }} -p $PERSONAL_ACCESS_TOKEN
             docker pull $WEB_IMAGE
