@@ -3,7 +3,7 @@ name: Continuous Integration and Delivery
 on: [push]
 
 env:
-  WEB_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/web
+  WEB_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/web:latest
   # NGINX_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx
 
 jobs:
@@ -37,7 +37,7 @@ jobs:
       #   uses: docker/login-action@v2
       #   with:
       #     registry: ghcr.io
-      #     username: ${{ secrets.NAMESPACE }}
+      #     username: ${{ github.repository_owner }}
       #     password: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Pull images
