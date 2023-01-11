@@ -3,7 +3,7 @@ env
 .env
 ads.supervisor.conf
 db.md
-docker-compose.yml
 gunicorn wsgi:app --bind 0.0.0.0:8000
 myapp.conf
 nginx
+todo
