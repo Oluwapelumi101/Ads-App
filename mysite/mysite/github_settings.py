@@ -1,9 +1,8 @@
-
 # Copy this file to github_settings.py (don't check it into github)
 
 # Go to https://github.com/settings/developers
 
-# Add a New OAuth2 App 
+# Add a New OAuth2 App
 
 # Using PythonAnywhere here are some settings:
 
@@ -17,11 +16,11 @@
 
 # Then copy the client_key and secret to this file
 
-SOCIAL_AUTH_GITHUB_KEY = 'e4e5bb16db668b253a7b'
-SOCIAL_AUTH_GITHUB_SECRET = 'b9519b402b91e08e102a7aa6510cf6128699a199'
+SOCIAL_AUTH_GITHUB_KEY = "e4e5bb16db668b253a7b"
+SOCIAL_AUTH_GITHUB_SECRET = "b9519b402b91e08e102a7aa6510cf6128699a199"
 
 # Ask for the user's email (don't edit this line)
-SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
+SOCIAL_AUTH_GITHUB_SCOPE = ["user:email"]
 
 # Note you may not get email for github users that don't make their
 # email public - that is OK
@@ -36,4 +35,3 @@ SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
 # Homepage Url: http://localhost:8000
 # Application Description: Whatever
 # Authorization callback URL: http://127.0.0.1:8000/oauth/complete/github/
-

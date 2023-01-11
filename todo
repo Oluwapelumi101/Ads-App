@@ -1,0 +1,34 @@
+* Configure NGINX:
+* Deploy to server: done
+* Fix issue with static files: done
+* Configure github actions ci/cd
+* Add more HTML and CSS
+* Update firewalls on both servers
+* Fix issues with Github login 
+* Add Gmail login 
+* Look into app security
+
+
+TODO
+* env = done
+* Dockerize: done
+* Deploy docker 
+* Online db: done
+* Actions
+* Clen github : done
+* Clean server
+* Secure github ogin
+* Fix github err 
+* Remove general allow from database firewall
+* meeting: done
+
+* postgres datasbase firewall rule cleanup
+* add depends on to docker conf
+
+* confure docker file - done
+* configure docker compose - done
+* Super user -done
+
+
+#github token
+- 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
