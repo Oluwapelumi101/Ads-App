@@ -2,7 +2,7 @@
 
 SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL:-"admin@admin.com"}
 # cd /mysite/
-# ls
+ls
 
 /opt/venv/bin/python manage.py migrate --noinput
 
