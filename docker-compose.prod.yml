@@ -1,33 +1,28 @@
 version: "3.9"
 services:
   web:
-    image: "${WEB_IMAGE}"
+    build:
+      context: ./mysite
+      dockerfile: Dockerfile.prod
+    command: sh -c "chmod +x migrate.sh && sh migrate.sh && sh entrypoint.sh && sh collectstatic.sh "
     environment:
       - PORT=8000
     env_file:
       - .env
     ports:
       - "8000:8000"
-    # expose:
-    # - 8000
-    command: sh -c "chmod +x /code/migrate.sh && sh /code/migrate.sh && /code/entrypoint.sh && /code/collectstatic.sh"
     extra_hosts:
       - "postgresql:139.162.132.251"
 
+# Verify function in production
     volumes:
-    - static_volume:/code/staticfiles
+    - static_volume:/home/mysite/web/staticfiles
   
-  # nginx:
-  #   build:
-  #       context: ./nginx
-  #   volumes:
-  #     - static_volume:/code/staticfiles
-  #   ports:
-  #     - 8000:8000
-  #   depends_on:
-  #     - web
-
-
 volumes:
   static_volume:
   # postgres_data:
+
+
+
+
+

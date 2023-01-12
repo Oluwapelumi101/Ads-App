@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /app/
+# cd /mysite/
 /opt/venv/bin/python manage.py collectstatic --noinput
