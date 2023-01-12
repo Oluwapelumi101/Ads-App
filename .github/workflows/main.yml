@@ -90,5 +90,5 @@ jobs:
             docker login ghcr.io -u ${{ github.repository_owner }} -p $PERSONAL_ACCESS_TOKEN
             docker pull $WEB_IMAGE
             # docker pull $NGINX_IMAGE
-            sudo docker-compose -f docker-compose.yml up -d
+            sudo docker-compose -f docker-compose.yml up --build
           ENDSSH  
