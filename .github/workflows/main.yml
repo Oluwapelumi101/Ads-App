@@ -82,12 +82,12 @@ jobs:
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          scp  -o StrictHostKeyChecking=no -r ./.env ./docker-compose.yml root@${{ secrets.LINODE_IP_ADDRESS }}:/code
+          scp  -o StrictHostKeyChecking=no -r ./.env ./docker-compose.yml root@${{ secrets.LINODE_IP_ADDRESS }}:/app
           ssh -o StrictHostKeyChecking=no root@${{ secrets.LINODE_IP_ADDRESS }} << 'ENDSSH'
-            cd /code
+            cd /app
             source .env
             docker login ghcr.io -u ${{ github.repository_owner }} -p $PERSONAL_ACCESS_TOKEN
             docker pull $WEB_IMAGE
             # docker pull $NGINX_IMAGE
-            sudo docker-compose up -d
+            sudo docker-compose -f docker-compose.yml build
           ENDSSH  
