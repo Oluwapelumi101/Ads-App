@@ -1,27 +1,59 @@
+###########
+# BUILDER #
+###########
+
+FROM python:3.11-slim as builder
+
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
+
+WORKDIR /usr/src/app
+
+COPY . /usr/src/app/
+
+# dependencies
+RUN apt-get update && apt-get -y install netcat &&  apt-get -y install gettext
+
+# # install psycopg2 dependencies
+RUN  apt-get install gcc -y
+RUN apt-get install libpq-dev -y
+RUN apt-get install postgresql postgresql-contrib -y
+
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r /usr/src/app/requirements4.txt
+
+
+#########
+# FINAL #
+#########
+
 FROM python:3.11-slim
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
-RUN apt-get update && apt-get -y install netcat &&  apt-get -y install gettext
-
 # create directory for the app user
-RUN mkdir -p /home/mysite
+RUN mkdir -p /home/app
+
+# create the appuser user in appuser group
+# RUN addgroup -S app && adduser -S app -G app
+ARG user=app
+ARG group=app
+ARG uid=1000
+ARG gid=1000
+RUN groupadd -g ${gid} ${group} && useradd -u ${uid} -g ${group} -s /bin/sh ${user}
 
 # create the appropriate directories
-ENV HOME=/home/mysite
-ENV APP_HOME=/home/mysite/web
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
 RUN mkdir $APP_HOME
-RUN mkdir $APP_HOME/staticfiles
-RUN mkdir $APP_HOME/mediafiles
+RUN mkdir $APP_HOME/static
 WORKDIR $APP_HOME
 
 # copy project
 COPY . $APP_HOME
 
-
-# Activating virtual enviroment
-RUN python3 -m venv /opt/venv
+# dependencies
+RUN apt-get update && apt-get -y install netcat &&  apt-get -y install gettext
 
 # # install psycopg2 dependencies
 RUN  apt-get install gcc -y
@@ -29,9 +61,13 @@ RUN apt-get install libpq-dev -y
 RUN apt-get install postgresql postgresql-contrib -y
 
 # setup
-RUN /opt/venv/bin/pip install pip --upgrade && \
-    /opt/venv/bin/pip install -r requirements4.txt && \
-    chmod +x entrypoint.sh
+COPY --from=builder /usr/src/app/wheels /wheels
+COPY --from=builder /usr/src/app/requirements4.txt .
+RUN pip install --no-cache /wheels/*
+RUN pip install pip --upgrade 
 
+# chown all the files to the app user
+RUN chown -R ${user}:${group} $HOME
 
-CMD ["/home/mysite/web/entrypoint.sh"]
+# CMD ["/home/mysite/web/entrypoint.sh"]
+RUN ["chmod", "+x", "/home/app/web/entrypoint.sh"]
