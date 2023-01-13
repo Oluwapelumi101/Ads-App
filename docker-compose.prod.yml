@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   web:
-    image: "${APP_IMAGE}"
+    image: "${WEB_IMAGE}"
     restart: always
     command: sh -c "chmod +x migrate.sh && sh migrate.sh && sh entrypoint.sh && sh collectstatic.sh "
     environment:
