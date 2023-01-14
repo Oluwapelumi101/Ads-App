@@ -1,6 +1,6 @@
 venv
 env
-.env
+mysite/.env
 ads.supervisor.conf
 db.md
 gunicorn wsgi:app --bind 0.0.0.0:8000
