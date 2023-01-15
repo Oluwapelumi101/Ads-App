@@ -70,4 +70,4 @@ RUN pip install pip --upgrade
 RUN chown -R ${user}:${group} $HOME
 
 # CMD ["/home/mysite/web/entrypoint.sh"]
-RUN ["chmod", "+x", "/home/app/web/entrypoint.sh"]
+RUN ["chmod", "+x", "/home/app/web/entrypoint.prod.sh"]
